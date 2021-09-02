@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 
-
 const withHealthCounter = OriginalComponent => props => {
     const [healthStats, setHealthStats] = useState([]);
 
@@ -15,10 +14,18 @@ const withHealthCounter = OriginalComponent => props => {
         }
     }
     return (
-    <OriginalComponent healthStats={healthStats} 
-        addHealthStat={addHealthStat} 
-        sharedProp = 'Hello HOC'
-        {...props} />//importand!!!  Send any other props associated to the wrapped component on through
+        <>
+            <OriginalComponent healthStats={healthStats} 
+                addHealthStat={addHealthStat} 
+                title={props.title}
+                {...props} />
+            <div className='totals'>
+                <h6>Totals:</h6>
+                    {healthStats.map(item => (
+                        <li key={item.id}>{item.name} hours {item.hours}</li>
+                    ))}
+            </div>
+        </>
     )
 }
 

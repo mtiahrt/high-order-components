@@ -17,7 +17,6 @@ const ManualLogEntry = props => {
         }
     }
     const buildNewHealthStatEntry = () =>{
-        //maybe just a callback? 
         const newEntry = {
             id: healthStats.length,
             name: activity,
@@ -28,18 +27,12 @@ const ManualLogEntry = props => {
 
     return (
         <div className='manual-log'>
-            <h5>{props.sharedProp}</h5>
-            <label for="activity">Enter Activity</label>
+            <h5>{props.title}</h5>
+            <label>Enter Activity</label>
             <input className='activity' onChange={handleChange} value={activity} type="text" name="activity"/><br/>
-            <label for="hours">Enter Hours</label>
+            <label>Enter Hours</label>
             <input className='hours' onChange={handleChange} value={hours} type="text" name="hours"/><br/>
             <button onClick={buildNewHealthStatEntry} type="button" name="total">Submit</button>
-            <div>
-                <h6>Totals:</h6>
-                {healthStats.map(item => (
-                    <li key={item.id}>{item.name} hours {item.hours}</li>
-                ))}
-            </div>
         </div>
     )
 }

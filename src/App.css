@@ -6,17 +6,25 @@
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.totals{
+  margin-top: 2vh;
+  margin-left: 5vh;
 }
-
+h3{
+  background-color: lightgray;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+h5{
+  margin-bottom: 1vh;
+}
 h6{
   display: inline;
   margin-right: 1vh;
@@ -26,8 +34,8 @@ label{
   margin-right: 1vh;
 }
 
-.manual-log{
-  margin-right: 40vh;
+.furnish-log{
+  margin-top: 10vh;
 }
 
 button{

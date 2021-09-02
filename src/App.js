@@ -6,8 +6,8 @@ function App() {
     <div className="App">
       <h3>Enter your fitness hours</h3>
       <header className="App-header">
-      <ManualLogEntry/>
-      <FurnishLogEntry/>
+      <ManualLogEntry title='Manual Entry'/>
+      <FurnishLogEntry title='Drop Down Entry'/>
       </header>
     </div>
   );

@@ -4,7 +4,6 @@ import withHealthCounter from "./SharedCode/WithHealthCounter";
 const FurnishLogEntry = (props) => {
     const {healthStats, addHealthStat} = props;
     const buildNewHealthStatEntry = e => {
-        //maybe just a callback? 
         const newEntry = {
             id: healthStats.length,
             name: e.currentTarget.name,
@@ -14,7 +13,7 @@ const FurnishLogEntry = (props) => {
     }
     return (
         <div className="furnish-log">
-            <h5>{props.sharedProp}</h5>
+            <h5>{props.title}</h5>
             <h6>Sleep</h6>
             <select name='sleep' onChange={buildNewHealthStatEntry} className="sleep-hours">
                 <option value="4">4 hours</option>
@@ -37,12 +36,6 @@ const FurnishLogEntry = (props) => {
                 <option value="3">3 hours</option>
                 <option value="4">4 hours</option>
             </select>
-            <div>
-                <h6>Totals:</h6>
-                {healthStats.map(item => (
-                    <li key={item.id}>{item.name} hours {item.hours}</li>
-                ))}
-            </div>
         </div>
     )
 }
