@@ -3,6 +3,8 @@ import React, {useState} from 'react'
 const ManualLogEntry = () => {
     const [hours, setHours] = useState(0)
     const [activity, setActivity] = useState('');
+    const [healthStats, setHealthStats] = useState([]);
+
     const handleChange = ( e ) => {
         if(e.target.classList.contains('activity')){
             setActivity(e.target.value)
@@ -12,13 +14,24 @@ const ManualLogEntry = () => {
         if(/^\d*\.?\d*$/.test(e.target.value)){
             setHours(e.target.value)
         }
-
     }
-
 
     const addHealthStatManual = () => {
-
+        const newStatEntry = {
+            id: healthStats.length,
+            name: activity,
+            hours: Number(hours)
+        };
+        if(healthStats.some(item => item.name === newStatEntry.name)){
+            const index = healthStats.map( e =>  e.name).indexOf(newStatEntry.name);
+            const newStat = [...healthStats];
+            newStat[index].hours += newStatEntry.hours
+            setHealthStats(newStat)
+        }else{
+            setHealthStats(prevState => [newStatEntry,...prevState])
+        }
     }
+
     return (
         <div className='manual-log'>
             <label for="activity">Enter Activity</label>
@@ -28,7 +41,9 @@ const ManualLogEntry = () => {
             <button onClick={addHealthStatManual} type="button" name="total">Submit</button>
             <div>
                 <h6>Totals:</h6>
-                <h6 className="totals"></h6>
+                {healthStats.map(item => (
+                    <li key={item.id}>{item.name} hours {item.hours}</li>
+                ))}
             </div>
         </div>
     )
