@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react';
+import withHealthCounter from "./SharedCode/WithHealthCounter";
 
-const FurnishLogEntry = () => {
-    const [healthStats, setHealthStats] = useState([]);
-
+const FurnishLogEntry = (props) => {
+    const {healthStats, addHealthStat} = props;
     const buildNewHealthStatEntry = e => {
         //maybe just a callback? 
         const newEntry = {
@@ -12,19 +12,9 @@ const FurnishLogEntry = () => {
         };
         addHealthStat(newEntry);
     }
-
-    const addHealthStat = newHealthStatEntry => {
-        if(healthStats.some(item => item.name === newHealthStatEntry.name)){
-            const index = healthStats.map( e =>  e.name).indexOf(newHealthStatEntry.name);
-            const newStat = [...healthStats];
-            newStat[index].hours += newHealthStatEntry.hours
-            setHealthStats(newStat)
-        }else{
-            setHealthStats(prevState => [newHealthStatEntry,...prevState])
-        }
-    }
     return (
         <div className="furnish-log">
+            <h5>{props.sharedProp}</h5>
             <h6>Sleep</h6>
             <select name='sleep' onChange={buildNewHealthStatEntry} className="sleep-hours">
                 <option value="4">4 hours</option>
@@ -56,4 +46,4 @@ const FurnishLogEntry = () => {
         </div>
     )
 }
-export default FurnishLogEntry
+export default withHealthCounter(FurnishLogEntry);

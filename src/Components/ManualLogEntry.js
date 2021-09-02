@@ -1,9 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+import withHealthCounter from './SharedCode/WithHealthCounter';
 
-const ManualLogEntry = () => {
+const ManualLogEntry = props => {
     const [hours, setHours] = useState(0)
     const [activity, setActivity] = useState('');
-    const [healthStats, setHealthStats] = useState([]);
+    const {healthStats, addHealthStat} = props;
 
     const handleChange = ( e ) => {
         if(e.target.classList.contains('activity')){
@@ -24,19 +25,10 @@ const ManualLogEntry = () => {
         };
         addHealthStat(newEntry);
     }
-    const addHealthStat = newHealthStatEntry => {
-        if(healthStats.some(item => item.name === newHealthStatEntry.name)){
-            const index = healthStats.map( e =>  e.name).indexOf(newHealthStatEntry.name);
-            const newStat = [...healthStats];
-            newStat[index].hours += newHealthStatEntry.hours
-            setHealthStats(newStat)
-        }else{
-            setHealthStats(prevState => [newHealthStatEntry,...prevState])
-        }
-    }
 
     return (
         <div className='manual-log'>
+            <h5>{props.sharedProp}</h5>
             <label for="activity">Enter Activity</label>
             <input className='activity' onChange={handleChange} value={activity} type="text" name="activity"/><br/>
             <label for="hours">Enter Hours</label>
@@ -52,4 +44,4 @@ const ManualLogEntry = () => {
     )
 }
 
-export default ManualLogEntry
+export default withHealthCounter(ManualLogEntry);
