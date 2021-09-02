@@ -15,20 +15,23 @@ const ManualLogEntry = () => {
             setHours(e.target.value)
         }
     }
-
-    const addHealthStatManual = () => {
-        const newStatEntry = {
+    const buildNewHealthStatEntry = () =>{
+        //maybe just a callback? 
+        const newEntry = {
             id: healthStats.length,
             name: activity,
             hours: Number(hours)
         };
-        if(healthStats.some(item => item.name === newStatEntry.name)){
-            const index = healthStats.map( e =>  e.name).indexOf(newStatEntry.name);
+        addHealthStat(newEntry);
+    }
+    const addHealthStat = newHealthStatEntry => {
+        if(healthStats.some(item => item.name === newHealthStatEntry.name)){
+            const index = healthStats.map( e =>  e.name).indexOf(newHealthStatEntry.name);
             const newStat = [...healthStats];
-            newStat[index].hours += newStatEntry.hours
+            newStat[index].hours += newHealthStatEntry.hours
             setHealthStats(newStat)
         }else{
-            setHealthStats(prevState => [newStatEntry,...prevState])
+            setHealthStats(prevState => [newHealthStatEntry,...prevState])
         }
     }
 
@@ -38,7 +41,7 @@ const ManualLogEntry = () => {
             <input className='activity' onChange={handleChange} value={activity} type="text" name="activity"/><br/>
             <label for="hours">Enter Hours</label>
             <input className='hours' onChange={handleChange} value={hours} type="text" name="hours"/><br/>
-            <button onClick={addHealthStatManual} type="button" name="total">Submit</button>
+            <button onClick={buildNewHealthStatEntry} type="button" name="total">Submit</button>
             <div>
                 <h6>Totals:</h6>
                 {healthStats.map(item => (
