@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const withHealthCounter = OriginalComponent => props => {
+const withHealthCounter = WrappedComponent => props => {
     const [healthStats, setHealthStats] = useState([]);
 
     const addHealthStat = newHealthStatEntry => {
@@ -15,7 +15,7 @@ const withHealthCounter = OriginalComponent => props => {
     }
     return (
         <>
-            <OriginalComponent healthStats={healthStats} 
+            <WrappedComponent healthStats={healthStats} 
                 addHealthStat={addHealthStat} 
                 title={props.title}
                 {...props} />
