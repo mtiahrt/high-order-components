@@ -2,40 +2,32 @@ import React from 'react';
 import withHealthCounter from "./SharedCode/WithHealthCounter";
 
 const FurnishLogEntry = (props) => {
-    const {healthStats, addHealthStat} = props;
-    const buildNewHealthStatEntry = e => {
-        const newEntry = {
-            id: healthStats.length,
-            name: e.currentTarget.name,
-            hours: Number(e.currentTarget.value)
-        };
-        addHealthStat(newEntry);
+    const {healthStats, title, buildNewHealthStatEntry} = props;
+    const getSelectOptions = (values, activity) => {
+        return (
+            <select name={activity} onChange={e => buildNewHealthStatEntry(e.currentTarget.name, Number(e.currentTarget.value))}
+                    className={`${activity}-hours`}>
+                {values.map(item => <option key={item} value={item}>{item} hours</option>)})
+            </select>
+        )
     }
     return (
         <div className="furnish-log">
-            <h5>{props.title}</h5>
+            <h5>{title}</h5>
             <h6>Sleep</h6>
-            <select name='sleep' onChange={buildNewHealthStatEntry} className="sleep-hours">
-                <option value="4">4 hours</option>
-                <option value="5">5 hours</option>
-                <option value="6">6 hours</option>
-                <option value="7">7 hours</option>
-                <option value="8">8 hours</option>
-            </select><br/>
+            {getSelectOptions( [4,5,6,7,8] ,'sleep')}<br/>
             <h6>Exercise</h6>
-            <select name='exercise' onChange={buildNewHealthStatEntry} className="exercise-hours">
-                <option value='1'>1 hour</option>
-                <option value="2">2 hours</option>
-                <option value="3">3 hours</option>
-                <option value="4">4 hours</option>
-            </select><br/>
+            {getSelectOptions( [1,2,3,4,5] ,'exercise')}<br/>
             <h6>Meditate</h6>
-            <select name='meditate' onChange={buildNewHealthStatEntry} className="meditate-hours">
-                <option value="1">1 hour</option>
-                <option value="2">2 hours</option>
-                <option value="3">3 hours</option>
-                <option value="4">4 hours</option>
-            </select>
+            {getSelectOptions( [1,2,3,4,5] ,'meditate')}<br/>
+            <div className='totals'>
+                <h6>Totals:</h6>
+                <ul>
+                    {healthStats.map(item => (
+                        <li key={item.id}>{item.name} hours {item.hours}</li>
+                    ))}
+                </ul>
+            </div>
         </div>
     )
 }
