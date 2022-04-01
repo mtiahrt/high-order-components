@@ -1,7 +1,7 @@
 ### installing this app
 1. clone this repo
 2. npm install
-3. npm start.  
+3. npm start
 
 
 ## What is a higher-order component in React?
